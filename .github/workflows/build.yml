@@ -14,8 +14,15 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      # ВАЖНО: Используем версию v4, а не v3
       - uses: android-actions/setup-android@v4
+
+      # Генерируем обертку, если она отсутствует
+      - name: Generate Gradle Wrapper
+        run: gradle wrapper --gradle-version 8.7
+        continue-on-error: true
+
+      - name: Grant execute permission
+        run: chmod +x gradlew
 
       - name: Build APK
         run: ./gradlew assembleDebug --no-daemon
