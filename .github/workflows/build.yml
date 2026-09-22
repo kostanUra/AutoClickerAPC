@@ -14,13 +14,8 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Install required SDK packages
-        run: |
-          yes | sdkmanager --licenses
-          sdkmanager "platforms;android-34" "build-tools;34.0.0"
+      # ВАЖНО: Используем версию v4, а не v3
+      - uses: android-actions/setup-android@v4
 
       - name: Build APK
         run: ./gradlew assembleDebug --no-daemon
